@@ -9,7 +9,7 @@ class AppLocaleEn {
     'contact': 'CONTACT',
 
     // Hero Section
-    'hero_title': 'TT PLYWOOD',
+    'hero_title': 'GAOMINH',
     'hero_subtitle':
         'Trusted supplier of plywood and wood accessories in Vietnam',
     'explore_now': 'EXPLORE NOW',
@@ -20,7 +20,7 @@ class AppLocaleEn {
         'meet many people, and I realized that all customers share a common difficulty: '
         'how to find a truly reputable and quality plywood manufacturer and supplier.\n\n'
         'With that in mind, I decided to establish Truong Thinh Import Export Trading Joint Stock Company '
-        '(TT PLYWOOD), with the goal of promoting Vietnamese products and culture to friends around the world.',
+        '(GAOMINH), with the goal of promoting Vietnamese products and culture to friends around the world.',
     'years_experience': 'YEARS EXPERIENCE',
     'export_countries': 'EXPORT COUNTRIES',
     'customers': 'CUSTOMERS',

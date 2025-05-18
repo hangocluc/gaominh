@@ -32,12 +32,10 @@ class AboutSection extends StatelessWidget {
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
             child: Text(
-              'Trong suốt hơn 10 năm trong nghề, bản thân tôi đã có cơ hội đi đến rất nhiều nơi, '
-              'gặp gỡ rất nhiều người, tôi nhận ra rằng tất cả các khách hàng đều có chung một khó khăn, '
-              'đó là làm sao để tìm kiếm một nhà sản xuất và cung cấp ván ép thực sự uy tín, chất lượng.\n\n'
-              'Cùng với suy nghĩ đó, tôi quyết định thành lập Công ty Cổ phần Kinh Doanh Thương Mại và '
-              'Xuất Nhập Khẩu Trường Thịnh (TT PLYWOOD), với mục tiêu quảng bá sản phẩm cũng như văn hóa '
-              'người Việt Nam tới bạn bè trên khắp thế giới.',
+              'CÔNG TY TNHH CÔNG NGHIỆP VÀ THƯƠNG MẠI VIỆT NAM GAOMINH chuyên sản xuất và xuất khẩu các loại ván ép như: '
+              'ván phủ phim, ván phủ Melamine, ván ép Birch, ván Poplar, MDF, Ván dăm, v.v. '
+              'Sản phẩm của chúng tôi được tin dùng tại nhiều thị trường trong và ngoài nước nhờ chất lượng vượt trội '
+              'và quy trình sản xuất nghiêm ngặt.',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.8,
                   ),

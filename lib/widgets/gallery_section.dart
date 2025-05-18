@@ -6,10 +6,10 @@ class GallerySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final images = [
-      'assets/images/gallery1.jpg',
-      'assets/images/gallery2.jpg',
-      'assets/images/gallery3.jpg',
-      'assets/images/gallery4.jpg',
+      'assets/images/image.png',
+      'assets/images/image2.png',
+      'assets/images/image3.png',
+      'assets/images/image4.png',
     ];
 
     return Container(
@@ -20,9 +20,9 @@ class GallerySection extends StatelessWidget {
           Text(
             'THƯ VIỆN ẢNH',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
           const SizedBox(height: 40),
           GridView.builder(
@@ -71,4 +71,4 @@ class GallerySection extends StatelessWidget {
       ),
     );
   }
-} 
+}

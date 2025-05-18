@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<LocaleProvider>(
         builder: (context, localeProvider, _) {
           return MaterialApp(
-            title: 'TT Plywood',
+            title: 'Gao Minh',
             debugShowCheckedModeBanner: false,
             locale: localeProvider.locale,
             supportedLocales: AppLocalizations.supportedLocales,

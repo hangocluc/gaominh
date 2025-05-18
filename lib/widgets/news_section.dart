@@ -10,14 +10,14 @@ class NewsSection extends StatelessWidget {
       {
         'title': 'Ván Ép Phủ Phim là Gì? Ứng Dụng Trong Xây Dựng Hiện Đại',
         'date': '14 Tháng 03',
-        'image': 'assets/images/news1.jpg',
+        'image': 'assets/images/product1.png',
         'description':
             'Trong ngành xây dựng hiện đại, việc lựa chọn vật liệu phù hợp đóng vai trò quan trọng trong sự thành công của mọi công trình...',
       },
       {
         'title': 'So Sánh Ván Ép Trang Trí và Gỗ Tự Nhiên: Nên Chọn Loại Nào?',
         'date': '12 Tháng 03',
-        'image': 'assets/images/news2.jpg',
+        'image': 'assets/images/product3.png',
         'description':
             'Ván ép công nghiệp và gỗ tự nhiên là hai vật liệu phổ biến trong ngành nội thất và xây dựng. Tuy nhiên, việc lựa chọn...',
       },
@@ -25,7 +25,7 @@ class NewsSection extends StatelessWidget {
         'title':
             'Bật Mí 3 Loại Gỗ Ép Đang Làm Mưa Làm Gió Trong Thiết Kế Nội Thất Hiện Đại',
         'date': '03 Tháng 03',
-        'image': 'assets/images/news3.jpg',
+        'image': 'assets/images/product2.png',
         'description':
             'Bạn đang muốn cải tạo ngôi nhà hay thiết kế nội thất mới? Việc chọn đúng loại gỗ ép có thể tạo nên sự khác biệt lớn...',
       },

@@ -33,12 +33,10 @@ class Footer extends StatelessWidget {
                 context,
                 'THÔNG TIN CÔNG TY',
                 [
-                  'Văn phòng: LK C34 - Embassy Garden, Đ.Hoàng Minh Thảo, Phường Xuân Tảo, Quận Bắc Từ Liêm, Hà Nội',
-                  'Chi nhánh miền Nam: Đường số 19, phường Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh',
-                  'Kho: QL3, Dục Tú, Đông Anh, Hà Nội',
-                  'Nhà máy: khu 16, xã Địch Quả, huyện Thanh Sơn, tỉnh Phú Thọ',
-                  'Hotline: +84 326 942 288',
-                  'Email: info@ttplywood.com',
+                  'Tên công ty: CÔNG TY TNHH CÔNG NGHIỆP VÀ THƯƠNG MẠI VIỆT NAM GAOMINH',
+                  'Địa chỉ: Tầng 1, Số 9B, ngõ 391 Đường Nguyễn Văn Cừ, Phường Võ Cường, Thành phố Bắc Ninh, Tỉnh Bắc Ninh, Việt Nam',
+                  'Email: general.gaominh@gmail.com',
+                  'Điện thoại: 039 4126881 (Mr.Bai)',
                 ],
                 isSmallScreen ? screenWidth - 40 : 300,
               ),
@@ -86,16 +84,16 @@ class Footer extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              '© Copyright belongs to Công ty Cổ phần Kinh Doanh Thương Mại và Xuất Nhập Khẩu Trường Thịnh',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white70,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Text(
+          //     '© Copyright belongs to Công ty Cổ phần Kinh Doanh Thương Mại và Xuất Nhập Khẩu Trường Thịnh',
+          //     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          //           color: Colors.white70,
+          //         ),
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
         ],
       ),
     );

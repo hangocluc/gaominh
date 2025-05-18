@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.primary,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Image.asset('assets/images/logo.png', fit: BoxFit.contain),
+        child: Image.asset('assets/images/logo.png'),
       ),
       title: !isSmallScreen
           ? Row(

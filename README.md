@@ -1,6 +1,6 @@
-# TT Plywood Website
+# GAOMINH Website
 
-A modern Flutter web application for a plywood company, inspired by TT Plywood's website.
+A modern Flutter web application for a plywood company, inspired by GAOMINH's website.
 
 ## Features
 
@@ -22,21 +22,25 @@ A modern Flutter web application for a plywood company, inspired by TT Plywood's
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/web_qr.git
 ```
 
 2. Navigate to the project directory:
+
 ```bash
 cd web_qr
 ```
 
 3. Install dependencies:
+
 ```bash
 flutter pub get
 ```
 
 4. Run the application:
+
 ```bash
 flutter run -d chrome
 ```
@@ -86,4 +90,5 @@ assets/
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
 # gaominh

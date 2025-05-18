@@ -9,7 +9,7 @@ class AppLocaleVi {
     'contact': 'LIÊN HỆ',
 
     // Hero Section
-    'hero_title': 'TT PLYWOOD',
+    'hero_title': 'GAOMINH',
     'hero_subtitle':
         'Nhà cung cấp gỗ ván ép và phụ kiện gỗ uy tín tại Việt Nam',
     'explore_now': 'KHÁM PHÁ NGAY',
@@ -20,7 +20,7 @@ class AppLocaleVi {
         'gặp gỡ rất nhiều người, tôi nhận ra rằng tất cả các khách hàng đều có chung một khó khăn, '
         'đó là làm sao để tìm kiếm một nhà sản xuất và cung cấp ván ép thực sự uy tín, chất lượng.\n\n'
         'Cùng với suy nghĩ đó, tôi quyết định thành lập Công ty Cổ phần Kinh Doanh Thương Mại và '
-        'Xuất Nhập Khẩu Trường Thịnh (TT PLYWOOD), với mục tiêu quảng bá sản phẩm cũng như văn hóa '
+        'Xuất Nhập Khẩu Trường Thịnh (GAOMINH), với mục tiêu quảng bá sản phẩm cũng như văn hóa '
         'người Việt Nam tới bạn bè trên khắp thế giới.',
     'years_experience': 'NĂM KINH NGHIỆM',
     'export_countries': 'QUỐC GIA XUẤT KHẨU',

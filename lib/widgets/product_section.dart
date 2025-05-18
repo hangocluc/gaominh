@@ -16,28 +16,32 @@ class ProductSection extends StatelessWidget {
 
     final products = [
       {
-        'name': 'Ván ép phủ phim',
-        'image': 'assets/images/product1.jpg',
+        'name': 'Ván Ép Phủ Phim (Film Faced Plywood)',
+        'image': 'assets/images/product1.png',
       },
       {
-        'name': 'Ván ép chà dán',
-        'image': 'assets/images/product2.jpg',
+        'name': 'Ván Ép Phủ Melamine (Melamine Plywood)',
+        'image': 'assets/images/product2.png',
       },
       {
-        'name': 'Ván ép bao bì',
-        'image': 'assets/images/product3.jpg',
+        'name': 'Ván Ép Dán Mặt Birch (Birch Plywood)',
+        'image': 'assets/images/product3.png',
       },
       {
-        'name': 'Ván ép LVL',
-        'image': 'assets/images/product4.jpg',
+        'name': 'Ván Ép Dán Mặt Poplar (Poplar Plywood)',
+        'image': 'assets/images/product4.png',
       },
       {
-        'name': 'Dịch vụ cắt CNC',
-        'image': 'assets/images/product5.jpg',
+        'name': 'Ván Ép Mặt Veneer Kỹ Thuật (Technical Veneer Plywood)',
+        'image': 'assets/images/image4.png',
       },
       {
-        'name': 'Ván ép birch',
-        'image': 'assets/images/product6.jpg',
+        'name': 'Ván Mdf',
+        'image': 'assets/images/image.png',
+      },
+      {
+        'name': 'Ván Dăm (Particle Board)',
+        'image': 'assets/images/image3.png',
       },
     ];
 

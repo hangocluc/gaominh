@@ -7,9 +7,9 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> imgList = [
-      'assets/images/hero1.jpg',
-      'assets/images/hero2.jpg',
-      'assets/images/hero3.jpg',
+      'assets/images/banner1.png',
+      'assets/images/banner2.png',
+      'assets/images/banner3.png',
     ];
 
     return SizedBox(
@@ -53,7 +53,7 @@ class HeroSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'TT PLYWOOD',
+                'GAOMINH',
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
