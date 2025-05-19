@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:web_qr/screens/contact_screen.dart';
+import 'package:web_qr/screens/home_screen.dart';
+import 'package:web_qr/screens/activities_screen.dart';
+import 'package:web_qr/screens/products_screen.dart';
+import 'package:web_qr/screens/about_screen.dart';
+import 'package:web_qr/screens/news_screen.dart';
 import 'package:web_qr/widgets/language_switcher.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,6 +20,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     }
+  }
+
+  void _navigateToScreen(BuildContext context, String route) {
+    Navigator.pushNamed(context, route);
   }
 
   @override
@@ -33,12 +43,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? Row(
               children: [
                 const SizedBox(width: 20),
-                _buildNavItem(l10n.home, onTap: () {}),
-                _buildNavItem(l10n.products, onTap: () {}),
-                _buildNavItem(l10n.about, onTap: () {}),
-                _buildNavItem(l10n.news, onTap: () {}),
-                _buildNavItem(l10n.activities, onTap: () {}),
-                _buildNavItem(l10n.contact, onTap: () {}),
+                _buildNavItem(l10n.home, onTap: () {
+                  _navigateToScreen(context, '/');
+                }),
+                _buildNavItem(l10n.products, onTap: () {
+                  _navigateToScreen(context, '/products');
+                }),
+                _buildNavItem(l10n.about, onTap: () {
+                  _navigateToScreen(context, '/about');
+                }),
+                _buildNavItem(l10n.news, onTap: () {
+                  _navigateToScreen(context, '/news');
+                }),
+                _buildNavItem(l10n.activities, onTap: () {
+                  _navigateToScreen(context, '/activities');
+                }),
+                _buildNavItem(l10n.contact, onTap: () {
+                  _navigateToScreen(context, '/contact');
+                }),
                 const Spacer(),
                 _buildSocialIcon(
                     FontAwesomeIcons.facebook, 'https://facebook.com'),

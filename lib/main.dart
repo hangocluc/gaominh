@@ -4,11 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_qr/screens/home_screen.dart';
+import 'package:web_qr/screens/contact_screen.dart';
+import 'package:web_qr/screens/products_screen.dart';
+import 'package:web_qr/screens/about_screen.dart';
+import 'package:web_qr/screens/news_screen.dart';
+import 'package:web_qr/screens/activities_screen.dart';
 import 'package:web_qr/providers/locale_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setUrlStrategy(PathUrlStrategy());
   final prefs = await SharedPreferences.getInstance();
   runApp(MyApp(prefs: prefs));
 }
@@ -44,7 +51,28 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.robotoTextTheme(),
               useMaterial3: true,
             ),
-            home: const HomeScreen(),
+            onGenerateRoute: (settings) {
+              switch (settings.name) {
+                case '/':
+                  return MaterialPageRoute(builder: (_) => const HomeScreen());
+                case '/products':
+                  return MaterialPageRoute(
+                      builder: (_) => const ProductsScreen());
+                case '/about':
+                  return MaterialPageRoute(builder: (_) => const AboutScreen());
+                case '/news':
+                  return MaterialPageRoute(builder: (_) => const NewsScreen());
+                case '/activities':
+                  return MaterialPageRoute(
+                      builder: (_) => const ActivitiesScreen());
+                case '/contact':
+                  return MaterialPageRoute(
+                      builder: (_) => const ContactScreen());
+                default:
+                  return MaterialPageRoute(builder: (_) => const HomeScreen());
+              }
+            },
+            initialRoute: '/',
           );
         },
       ),
