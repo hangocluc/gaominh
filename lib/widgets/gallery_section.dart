@@ -32,6 +32,9 @@ class GallerySection extends StatelessWidget {
       'assets/images/image13.jpg',
       'assets/images/image14.jpg',
       'assets/images/image15.jpg',
+      'assets/images/image16.jpg',
+      'assets/images/image17.jpg',
+      'assets/images/image18.jpg',
     ];
 
     return Container(

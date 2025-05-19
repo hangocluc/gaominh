@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -16,6 +18,12 @@ class _ContactPageState extends State<ContactPage> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _messageController = TextEditingController();
+  bool _isSending = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -24,6 +32,68 @@ class _ContactPageState extends State<ContactPage> {
     _phoneController.dispose();
     _messageController.dispose();
     super.dispose();
+  }
+
+  Future<void> _sendEmail() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isSending = true);
+
+    try {
+      const serviceId = 'YOUR_SERVICE_ID';
+      const templateId = 'YOUR_TEMPLATE_ID';
+      const userId = 'YOUR_PUBLIC_KEY';
+
+      final response = await http.post(
+        Uri.parse('https://api.emailjs.com/api/v1.0/email/send'),
+        headers: {
+          'Content-Type': 'application/json',
+          'origin': 'http://localhost',
+        },
+        body: json.encode({
+          'service_id': serviceId,
+          'template_id': templateId,
+          'user_id': userId,
+          'template_params': {
+            'from_name': _nameController.text,
+            'from_email': _emailController.text,
+            'phone': _phoneController.text,
+            'message': _messageController.text,
+            'to_email': 'general.gaominh@gmail.com',
+          }
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.message_sent),
+              backgroundColor: Colors.green,
+            ),
+          );
+          _nameController.clear();
+          _emailController.clear();
+          _phoneController.clear();
+          _messageController.clear();
+        }
+      } else {
+        throw Exception('Failed to send email: ${response.body}');
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${error.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isSending = false);
+      }
+    }
   }
 
   void _launchURL(String url) async {
@@ -271,27 +341,28 @@ class _ContactPageState extends State<ContactPage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // TODO: Implement form submission
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.message_sent),
-                      ),
-                    );
-                  }
-                },
+                onPressed: _isSending ? null : _sendEmail,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                child: Text(
-                  l10n.send_button,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: _isSending
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        l10n.send_button,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ),
             ),
           ],
