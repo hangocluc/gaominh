@@ -7,11 +7,31 @@ class GallerySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth > 1200
+        ? 4
+        : screenWidth > 800
+            ? 3
+            : screenWidth > 600
+                ? 2
+                : 1;
+
     final images = [
       'assets/images/image.png',
       'assets/images/image2.png',
       'assets/images/image3.png',
       'assets/images/image4.png',
+      'assets/images/image5.jpg',
+      'assets/images/image6.jpg',
+      'assets/images/image7.jpg',
+      'assets/images/image8.jpg',
+      'assets/images/image9.jpg',
+      'assets/images/image10.jpg',
+      'assets/images/image11.jpg',
+      'assets/images/image12.jpg',
+      'assets/images/image13.jpg',
+      'assets/images/image14.jpg',
+      'assets/images/image15.jpg',
     ];
 
     return Container(
@@ -30,40 +50,68 @@ class GallerySection extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
               childAspectRatio: 1.0,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: screenWidth > 600 ? 10 : 5,
+              mainAxisSpacing: screenWidth > 600 ? 10 : 5,
             ),
             itemCount: images.length,
             itemBuilder: (context, index) {
-              return _buildGalleryItem(context, images[index]);
+              return _GalleryItem(image: images[index]);
             },
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildGalleryItem(BuildContext context, String image) {
-    return Card(
-      elevation: 4,
-      child: InkWell(
-        onTap: () {
-          // Show full-screen image view
-          showDialog(
-            context: context,
-            builder: (context) => Dialog(
+class _GalleryItem extends StatelessWidget {
+  final String image;
+
+  const _GalleryItem({required this.image});
+
+  void _showFullScreenImage(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Stack(
+          children: [
+            InteractiveViewer(
               child: Image.asset(
                 image,
                 fit: BoxFit.contain,
               ),
             ),
-          );
-        },
+            Positioned(
+              top: 16,
+              right: 16,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.white, size: 32),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: InkWell(
+        onTap: () => _showFullScreenImage(context),
+        borderRadius: BorderRadius.circular(8),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
             image: DecorationImage(
               image: AssetImage(image),
               fit: BoxFit.cover,

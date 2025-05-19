@@ -8,6 +8,10 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmallScreen = screenWidth < 600;
+
     final List<String> imgList = [
       'assets/images/banner5.jpeg',
       'assets/images/banner3.png',
@@ -15,30 +19,31 @@ class HeroSection extends StatelessWidget {
     ];
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.8,
+      height: isSmallScreen ? screenHeight * 0.4 : screenHeight * 0.5,
       child: FlutterCarousel(
         options: CarouselOptions(
-          height: MediaQuery.of(context).size.height * 0.8,
+          height: isSmallScreen ? screenHeight * 0.4 : screenHeight * 0.5,
           viewportFraction: 1.0,
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 5),
           showIndicator: false,
         ),
         items: imgList
-            .map((item) => _buildCarouselItem(context, item, l10n))
+            .map((item) =>
+                _buildCarouselItem(context, item, l10n, isSmallScreen))
             .toList(),
       ),
     );
   }
 
-  Widget _buildCarouselItem(
-      BuildContext context, String imageUrl, AppLocalizations l10n) {
+  Widget _buildCarouselItem(BuildContext context, String imageUrl,
+      AppLocalizations l10n, bool isSmallScreen) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imageUrl),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
       child: Container(
@@ -53,42 +58,50 @@ class HeroSection extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                l10n.hero_title,
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 20 : 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  l10n.hero_title,
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: isSmallScreen ? 32 : null,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: isSmallScreen ? 10 : 20),
+                Text(
+                  l10n.hero_subtitle,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: Colors.white,
+                        fontSize: isSmallScreen ? 16 : null,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: isSmallScreen ? 20 : 40),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isSmallScreen ? 20 : 40,
+                      vertical: isSmallScreen ? 12 : 20,
+                    ),
+                  ),
+                  child: Text(
+                    l10n.explore_now,
+                    style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontSize: isSmallScreen ? 14 : null,
                     ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                l10n.hero_subtitle,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 20,
                   ),
                 ),
-                child: Text(
-                  l10n.explore_now,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

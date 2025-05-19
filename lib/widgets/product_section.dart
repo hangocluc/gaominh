@@ -213,14 +213,19 @@ class ProductSection extends StatelessWidget {
 
   Widget _buildSimpleProductGrid(BuildContext context, int crossAxisCount,
       List<Product> products, AppLocalizations l10n) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 600;
+    final itemWidth = screenWidth / crossAxisCount;
+    final imageHeight = itemWidth * (isSmallScreen ? 0.6 : 0.75);
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: 0.75,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
+        childAspectRatio: isSmallScreen ? 0.7 : 0.75,
+        crossAxisSpacing: screenWidth > 600 ? 20 : 10,
+        mainAxisSpacing: screenWidth > 600 ? 20 : 10,
       ),
       itemCount: products.length,
       itemBuilder: (context, index) {
@@ -238,13 +243,13 @@ class ProductSection extends StatelessWidget {
                     const BorderRadius.vertical(top: Radius.circular(8)),
                 child: Image.asset(
                   product.image,
-                  height: 200,
+                  height: imageHeight,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -252,14 +257,17 @@ class ProductSection extends StatelessWidget {
                       product.name,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
+                            fontSize: isSmallScreen ? 14 : null,
                           ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: isSmallScreen ? 4 : 8),
                     Text(
                       product.description,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: isSmallScreen ? 12 : null,
+                          ),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -276,20 +284,23 @@ class ProductSection extends StatelessWidget {
   Widget _buildDetailedProductList(
       BuildContext context, List<Product> products, AppLocalizations l10n) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 600;
     final crossAxisCount = screenWidth > 1200
         ? 3
         : screenWidth > 800
             ? 2
             : 1;
+    final itemWidth = screenWidth / crossAxisCount;
+    final imageHeight = itemWidth * (isSmallScreen ? 0.5 : 0.6);
 
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: 0.6,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
+        childAspectRatio: isSmallScreen ? 0.5 : 0.6,
+        crossAxisSpacing: screenWidth > 600 ? 20 : 10,
+        mainAxisSpacing: screenWidth > 600 ? 20 : 10,
       ),
       itemCount: products.length,
       itemBuilder: (context, index) {
@@ -308,13 +319,13 @@ class ProductSection extends StatelessWidget {
                       const BorderRadius.vertical(top: Radius.circular(8)),
                   child: Image.asset(
                     product.image,
-                    height: 200,
+                    height: imageHeight,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -324,12 +335,15 @@ class ProductSection extends StatelessWidget {
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,
+                                  fontSize: isSmallScreen ? 14 : null,
                                 ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: isSmallScreen ? 4 : 8),
                       Text(
                         product.description,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: isSmallScreen ? 12 : null,
+                            ),
                       ),
                       if (product.specifications.isNotEmpty) ...[
                         const SizedBox(height: 16),

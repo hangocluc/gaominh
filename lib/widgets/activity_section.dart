@@ -29,6 +29,13 @@ class ActivitySection extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     if (l10n == null) return const SizedBox.shrink();
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth > 1200
+        ? 3
+        : screenWidth > 800
+            ? 2
+            : 1;
+
     final List<ActivityItem> activities = [
       ActivityItem(
         title: l10n.activity1_title,
@@ -73,9 +80,9 @@ class ActivitySection extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 1,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              childAspectRatio: screenWidth > 600 ? 1 : 0.8,
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
             ),
