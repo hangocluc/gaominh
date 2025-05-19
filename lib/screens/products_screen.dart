@@ -15,7 +15,7 @@ class ProductsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ProductSection(),
+            ProductSection(isDetailedVersion: true),
             Footer(),
           ],
         ),

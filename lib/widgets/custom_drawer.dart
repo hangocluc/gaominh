@@ -11,8 +11,25 @@ import 'package:web_qr/screens/news_screen.dart';
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
-  void _navigateToScreen(BuildContext context, String route) {
-    Navigator.pushNamed(context, route);
+  void _navigateToScreen(BuildContext context, String route) async {
+    // Đóng drawer trước
+    Navigator.pop(context);
+
+    // Đợi một chút để animation đóng drawer hoàn thành
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    // Kiểm tra context còn tồn tại và không phải route hiện tại
+    if (context.mounted && !_isCurrentRoute(context, route)) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        route,
+        (Route<dynamic> route) => false,
+      );
+    }
+  }
+
+  bool _isCurrentRoute(BuildContext context, String route) {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
+    return currentRoute == route;
   }
 
   @override
@@ -40,37 +57,37 @@ class CustomDrawer extends StatelessWidget {
               context,
               l10n.home,
               Icons.home,
-              onTap: () => _navigateToScreen(context, '/'),
+              '/',
             ),
             _buildDrawerItem(
               context,
               l10n.products,
               Icons.category,
-              onTap: () => _navigateToScreen(context, '/products'),
+              '/products',
             ),
             _buildDrawerItem(
               context,
               l10n.about,
               Icons.info,
-              onTap: () => _navigateToScreen(context, '/about'),
+              '/about',
             ),
             _buildDrawerItem(
               context,
               l10n.news,
               Icons.article,
-              onTap: () => _navigateToScreen(context, '/news'),
+              '/news',
             ),
             _buildDrawerItem(
               context,
               l10n.activities,
               Icons.event,
-              onTap: () => _navigateToScreen(context, '/activities'),
+              '/activities',
             ),
             _buildDrawerItem(
               context,
               l10n.contact,
               Icons.contact_mail,
-              onTap: () => _navigateToScreen(context, '/contact'),
+              '/contact',
             ),
             const Divider(color: Colors.white30),
             Padding(
@@ -93,19 +110,38 @@ class CustomDrawer extends StatelessWidget {
   Widget _buildDrawerItem(
     BuildContext context,
     String title,
-    IconData icon, {
-    VoidCallback? onTap,
-  }) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.white),
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+    IconData icon,
+    String route,
+  ) {
+    final isCurrentRoute = _isCurrentRoute(context, route);
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: isCurrentRoute
+            ? Theme.of(context).colorScheme.secondary
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: InkWell(
+        onTap: () => _navigateToScreen(context, route),
+        borderRadius: BorderRadius.circular(8),
+        child: ListTile(
+          leading: Icon(
+            icon,
+            color: Colors.white,
+            size: 20,
+          ),
+          title: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: isCurrentRoute ? FontWeight.bold : FontWeight.normal,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
-      onTap: onTap ?? () {},
     );
   }
 

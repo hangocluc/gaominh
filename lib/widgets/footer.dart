@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -15,6 +16,8 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 800;
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -31,36 +34,36 @@ class Footer extends StatelessWidget {
             children: [
               _buildInfoColumn(
                 context,
-                'THÔNG TIN CÔNG TY',
+                l10n.footer_company_info,
                 [
-                  'Tên công ty: CÔNG TY TNHH CÔNG NGHIỆP VÀ THƯƠNG MẠI VIỆT NAM GAOMINH',
-                  'Địa chỉ: Tầng 1, Số 9B, ngõ 391 Đường Nguyễn Văn Cừ, Phường Võ Cường, Thành phố Bắc Ninh, Tỉnh Bắc Ninh, Việt Nam',
-                  'Email: general.gaominh@gmail.com',
-                  'Điện thoại: 039 4126881 (Mr.Bai)',
+                  l10n.footer_company_name,
+                  l10n.footer_address,
+                  l10n.footer_email,
+                  l10n.footer_phone,
                 ],
                 isSmallScreen ? screenWidth - 40 : 300,
               ),
               _buildInfoColumn(
                 context,
-                'SẢN PHẨM',
+                l10n.footer_products,
                 [
-                  'Ván Ép Nội Thất',
-                  'Ván Ép Xây Dựng',
-                  'Gỗ Công Nghiệp',
-                  'PHỤ KIỆN VÁN ÉP',
-                  'CẮT CNC',
-                  'CÁC SẢN PHẨM GỖ KHÁC',
+                  l10n.footer_interior_plywood,
+                  l10n.footer_construction_plywood,
+                  l10n.footer_industrial_wood,
+                  l10n.footer_plywood_accessories,
+                  l10n.footer_cnc_cutting,
+                  l10n.footer_other_wood_products,
                 ],
                 isSmallScreen ? screenWidth - 40 : 250,
               ),
               _buildInfoColumn(
                 context,
-                'CHÍNH SÁCH',
+                l10n.footer_policies,
                 [
-                  'Chính Sách Bảo Mật',
-                  'Chính Sách Vận Chuyển',
-                  'Chính Sách Thanh Toán',
-                  'Giấy Chứng Nhận',
+                  l10n.footer_privacy_policy,
+                  l10n.footer_shipping_policy,
+                  l10n.footer_payment_policy,
+                  l10n.footer_certificates,
                 ],
                 isSmallScreen ? screenWidth - 40 : 250,
               ),

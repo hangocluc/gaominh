@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:web_qr/widgets/app_bar.dart';
 import 'package:web_qr/widgets/custom_drawer.dart';
 import 'package:web_qr/widgets/footer.dart';
@@ -15,6 +16,9 @@ class ActivityDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
+
     return Scaffold(
       appBar: const CustomAppBar(),
       endDrawer: const CustomDrawer(),
@@ -34,7 +38,7 @@ class ActivityDetailScreen extends StatelessWidget {
                           Navigator.pop(context);
                         },
                         child: Text(
-                          'Hoạt Động',
+                          l10n.activities_title,
                           style: GoogleFonts.roboto(
                             color: Colors.blue,
                             fontSize: 14,

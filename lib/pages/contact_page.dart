@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -35,6 +36,9 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 800;
+    final l10n = AppLocalizations.of(context);
+
+    if (l10n == null) return const SizedBox.shrink();
 
     return SingleChildScrollView(
       child: Column(
@@ -48,7 +52,7 @@ class _ContactPageState extends State<ContactPage> {
             child: Column(
               children: [
                 Text(
-                  'LIÊN HỆ',
+                  l10n.contact_title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
@@ -77,7 +81,7 @@ class _ContactPageState extends State<ContactPage> {
             child: Column(
               children: [
                 Text(
-                  'KẾT NỐI VỚI CHÚNG TÔI',
+                  l10n.connect_with_us,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
@@ -93,22 +97,22 @@ class _ContactPageState extends State<ContactPage> {
                       context,
                       'Zalo',
                       FontAwesomeIcons.commentDots,
-                      'tel:+84326942288',
-                      '+84 326 942 288',
+                      'tel:+84 394 126 881',
+                      '+84 394 126 881',
                     ),
                     _buildSocialButton(
                       context,
                       'WhatsApp',
                       FontAwesomeIcons.whatsapp,
                       'https://wa.me/84326942288',
-                      '+84 326 942 288',
+                      '+84 394 126 881',
                     ),
                     _buildSocialButton(
                       context,
                       'Hotline',
                       FontAwesomeIcons.phone,
-                      'tel:+84326942288',
-                      '+84 326 942 288',
+                      'tel:+84 394 126 881',
+                      '+84 394 126 881',
                     ),
                   ],
                 ),
@@ -121,6 +125,9 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget _buildContactInfo(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
+
     return Container(
       width: 400,
       padding: const EdgeInsets.all(20),
@@ -140,7 +147,7 @@ class _ContactPageState extends State<ContactPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'THÔNG TIN LIÊN HỆ',
+            l10n.contact_info,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.primary,
@@ -150,25 +157,25 @@ class _ContactPageState extends State<ContactPage> {
           _buildInfoItem(
             context,
             Icons.business,
-            'CÔNG TY TNHH CÔNG NGHIỆP VÀ THƯƠNG MẠI VIỆT NAM GAOMINH',
+            l10n.footer_company_name,
           ),
           const SizedBox(height: 15),
           _buildInfoItem(
             context,
             Icons.location_on,
-            'Tầng 1, Số 9B, ngõ 391 Đường Nguyễn Văn Cừ, Phường Võ Cường, Thành phố Bắc Ninh, Tỉnh Bắc Ninh, Việt Nam',
+            l10n.footer_address,
           ),
           const SizedBox(height: 15),
           _buildInfoItem(
             context,
             Icons.email,
-            'general.gaominh@gmail.com',
+            l10n.footer_email,
           ),
           const SizedBox(height: 15),
           _buildInfoItem(
             context,
             Icons.phone,
-            '039 4126881 (Mr.Bai)',
+            l10n.footer_phone,
           ),
         ],
       ),
@@ -176,6 +183,9 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget _buildContactForm(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
+
     return Container(
       width: 400,
       padding: const EdgeInsets.all(20),
@@ -197,7 +207,7 @@ class _ContactPageState extends State<ContactPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'GỬI TIN NHẮN',
+              l10n.send_message,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
@@ -206,13 +216,13 @@ class _ContactPageState extends State<ContactPage> {
             const SizedBox(height: 20),
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Họ và tên *',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.full_name,
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Vui lòng nhập họ và tên';
+                  return l10n.name_required;
                 }
                 return null;
               },
@@ -220,16 +230,16 @@ class _ContactPageState extends State<ContactPage> {
             const SizedBox(height: 15),
             TextFormField(
               controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email *',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.email,
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Vui lòng nhập email';
+                  return l10n.email_required;
                 }
                 if (!value.contains('@')) {
-                  return 'Email không hợp lệ';
+                  return l10n.email_invalid;
                 }
                 return null;
               },
@@ -237,22 +247,22 @@ class _ContactPageState extends State<ContactPage> {
             const SizedBox(height: 15),
             TextFormField(
               controller: _phoneController,
-              decoration: const InputDecoration(
-                labelText: 'Số điện thoại',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.phone,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 15),
             TextFormField(
               controller: _messageController,
-              decoration: const InputDecoration(
-                labelText: 'Nội dung *',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.message,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 4,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Vui lòng nhập nội dung';
+                  return l10n.message_required;
                 }
                 return null;
               },
@@ -265,8 +275,8 @@ class _ContactPageState extends State<ContactPage> {
                   if (_formKey.currentState!.validate()) {
                     // TODO: Implement form submission
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Đã gửi tin nhắn thành công!'),
+                      SnackBar(
+                        content: Text(l10n.message_sent),
                       ),
                     );
                   }
@@ -275,9 +285,9 @@ class _ContactPageState extends State<ContactPage> {
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                child: const Text(
-                  'GỬI TIN NHẮN',
-                  style: TextStyle(
+                child: Text(
+                  l10n.send_button,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

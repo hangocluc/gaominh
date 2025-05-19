@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 HeroSection(),
                 AboutSection(),
-                ProductSection(),
+                ProductSection(isDetailedVersion: false),
                 NewsSection(),
                 GallerySection(),
                 Footer(),

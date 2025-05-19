@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GallerySection extends StatelessWidget {
   const GallerySection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final images = [
       'assets/images/image.png',
       'assets/images/image2.png',
@@ -18,7 +20,7 @@ class GallerySection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'THƯ VIỆN ẢNH',
+            l10n.gallery_title,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.primary,

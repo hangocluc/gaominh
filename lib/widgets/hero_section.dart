@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final List<String> imgList = [
-      'assets/images/banner1.png',
-      'assets/images/banner2.png',
+      'assets/images/banner5.jpeg',
       'assets/images/banner3.png',
+      'assets/images/banner6.jpg',
     ];
 
     return SizedBox(
@@ -22,19 +24,21 @@ class HeroSection extends StatelessWidget {
           autoPlayInterval: const Duration(seconds: 5),
           showIndicator: false,
         ),
-        items:
-            imgList.map((item) => _buildCarouselItem(context, item)).toList(),
+        items: imgList
+            .map((item) => _buildCarouselItem(context, item, l10n))
+            .toList(),
       ),
     );
   }
 
-  Widget _buildCarouselItem(BuildContext context, String imageUrl) {
+  Widget _buildCarouselItem(
+      BuildContext context, String imageUrl, AppLocalizations l10n) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imageUrl),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
       ),
       child: Container(
@@ -53,7 +57,7 @@ class HeroSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'GAOMINH',
+                l10n.hero_title,
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -61,7 +65,7 @@ class HeroSection extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Nhà cung cấp gỗ ván ép và phụ kiện gỗ uy tín tại Việt Nam',
+                l10n.hero_subtitle,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
                     ),
@@ -76,9 +80,9 @@ class HeroSection extends StatelessWidget {
                     vertical: 20,
                   ),
                 ),
-                child: const Text(
-                  'KHÁM PHÁ NGAY',
-                  style: TextStyle(
+                child: Text(
+                  l10n.explore_now,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

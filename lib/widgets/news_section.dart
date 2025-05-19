@@ -1,123 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../screens/news_detail_screen.dart';
 
 class NewsSection extends StatelessWidget {
   const NewsSection({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final news = [
-      {
-        'title': 'Ván Ép Phủ Phim là Gì? Ứng Dụng Trong Xây Dựng Hiện Đại',
-        'date': '14 Tháng 03',
-        'image': 'assets/images/product1.png',
-        'description':
-            'Trong ngành xây dựng hiện đại, việc lựa chọn vật liệu phù hợp đóng vai trò quan trọng trong sự thành công của mọi công trình...',
-      },
-      {
-        'title': 'So Sánh Ván Ép Trang Trí và Gỗ Tự Nhiên: Nên Chọn Loại Nào?',
-        'date': '12 Tháng 03',
-        'image': 'assets/images/product3.png',
-        'description':
-            'Ván ép công nghiệp và gỗ tự nhiên là hai vật liệu phổ biến trong ngành nội thất và xây dựng. Tuy nhiên, việc lựa chọn...',
-      },
-      {
-        'title':
-            'Bật Mí 3 Loại Gỗ Ép Đang Làm Mưa Làm Gió Trong Thiết Kế Nội Thất Hiện Đại',
-        'date': '03 Tháng 03',
-        'image': 'assets/images/product2.png',
-        'description':
-            'Bạn đang muốn cải tạo ngôi nhà hay thiết kế nội thất mới? Việc chọn đúng loại gỗ ép có thể tạo nên sự khác biệt lớn...',
-      },
-    ];
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 80,
-        horizontal: screenWidth > 600 ? 20 : 10,
-      ),
-      child: Column(
-        children: [
-          Text(
-            'TIN TỨC',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 40),
-          Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            alignment: WrapAlignment.center,
-            children: news
-                .map((article) => _buildNewsCard(context, article))
-                .toList(),
-          ),
-        ],
+  Widget _buildNewsCard(BuildContext context, Map<String, String> news) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewsDetailScreen(
+                title: news['title']!,
+                date: news['date']!,
+                image: news['image']!,
+                content: news['content']!,
+              ),
+            ),
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              news['image']!,
+              width: double.infinity,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    news['title']!,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    news['date']!,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey,
+                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    news['description']!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildNewsCard(BuildContext context, Map<String, String> article) {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = screenWidth > 1200
-        ? 350.0
-        : screenWidth > 800
-            ? 300.0
-            : screenWidth > 600
-                ? (screenWidth - 60) / 2
-                : screenWidth - 40;
+
+    final news = [
+      {
+        'title': l10n.news1_title,
+        'date': l10n.news1_date,
+        'image': 'assets/images/product1.png',
+        'description': l10n.news1_description,
+        'content': l10n.news1_content,
+      },
+      {
+        'title': l10n.news2_title,
+        'date': l10n.news2_date,
+        'image': 'assets/images/product2.png',
+        'description': l10n.news2_description,
+        'content': l10n.news2_content,
+      },
+      {
+        'title': l10n.news3_title,
+        'date': l10n.news3_date,
+        'image': 'assets/images/product3.png',
+        'description': l10n.news3_description,
+        'content': l10n.news3_content,
+      },
+    ];
 
     return Container(
-      width: cardWidth,
-      child: Card(
-        elevation: 4,
-        child: InkWell(
-          onTap: () {},
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                article['image']!,
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      article['date']!,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.grey[600],
-                          ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      article['title']!,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      article['description']!,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      child: Column(
+        children: [
+          Text(
+            l10n.news_title,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
-              ),
-            ],
           ),
-        ),
+          const SizedBox(height: 40),
+          if (screenWidth > 1200)
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: news
+                  .map((item) => Expanded(child: _buildNewsCard(context, item)))
+                  .toList(),
+            )
+          else
+            Column(
+              children:
+                  news.map((item) => _buildNewsCard(context, item)).toList(),
+            ),
+        ],
       ),
     );
   }

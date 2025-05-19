@@ -23,7 +23,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void _navigateToScreen(BuildContext context, String route) {
-    Navigator.pushNamed(context, route);
+    if (!_isCurrentRoute(context, route)) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        route,
+        (Route<dynamic> route) => false,
+      );
+    }
+  }
+
+  bool _isCurrentRoute(BuildContext context, String route) {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
+    return currentRoute == route;
   }
 
   @override
@@ -43,24 +53,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? Row(
               children: [
                 const SizedBox(width: 20),
-                _buildNavItem(l10n.home, onTap: () {
-                  _navigateToScreen(context, '/');
-                }),
-                _buildNavItem(l10n.products, onTap: () {
-                  _navigateToScreen(context, '/products');
-                }),
-                _buildNavItem(l10n.about, onTap: () {
-                  _navigateToScreen(context, '/about');
-                }),
-                _buildNavItem(l10n.news, onTap: () {
-                  _navigateToScreen(context, '/news');
-                }),
-                _buildNavItem(l10n.activities, onTap: () {
-                  _navigateToScreen(context, '/activities');
-                }),
-                _buildNavItem(l10n.contact, onTap: () {
-                  _navigateToScreen(context, '/contact');
-                }),
+                _buildNavItem(context, l10n.home, '/', true),
+                _buildNavItem(context, l10n.products, '/products', true),
+                _buildNavItem(context, l10n.about, '/about', true),
+                _buildNavItem(context, l10n.news, '/news', true),
+                _buildNavItem(context, l10n.activities, '/activities', true),
+                _buildNavItem(context, l10n.contact, '/contact', true),
                 const Spacer(),
                 _buildSocialIcon(
                     FontAwesomeIcons.facebook, 'https://facebook.com'),
@@ -86,16 +84,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildNavItem(String title, {required VoidCallback onTap}) {
+  Widget _buildNavItem(
+      BuildContext context, String title, String route, bool checkRoute) {
+    final isCurrentRoute = checkRoute ? _isCurrentRoute(context, route) : false;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: TextButton(
-        onPressed: onTap,
+        onPressed: () => _navigateToScreen(context, route),
+        style: TextButton.styleFrom(
+          backgroundColor: isCurrentRoute
+              ? Theme.of(context).colorScheme.secondary
+              : Colors.transparent,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ).copyWith(
+          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.hovered)) {
+                return Theme.of(context).colorScheme.secondary.withOpacity(0.2);
+              }
+              return null;
+            },
+          ),
+        ),
         child: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
+            fontWeight: isCurrentRoute ? FontWeight.bold : FontWeight.normal,
+            fontSize: 14,
           ),
         ),
       ),
