@@ -63,7 +63,14 @@ class _ProductsPageState extends State<ProductsPage> {
       'image': 'assets/images/image4.png',
       'category': 'Decorative Plywood',
       'description': 'Độ dày: 2.5-30mm, Keo E0, Bề mặt đẹp',
-    }
+    },
+    {
+      'name': 'Lam Sóng Gỗ (Wood Wave Panel)',
+      'image': 'assets/images/image18.jpg',
+      'category': 'Decorative Plywood',
+      'description':
+          'Kích thước: 2800-3000x120-195mm, Độ dày: 9-18mm, Chất liệu: Gỗ nhựa composite, Ứng dụng: Ốp tường, ốp trần trang trí',
+    },
   ];
 
   final List<Map<String, dynamic>> _categories = [
@@ -84,7 +91,8 @@ class _ProductsPageState extends State<ProductsPage> {
         'Commercial Plywood',
         'Birch Plywood',
         'Melamine Plywood',
-        'Core Plywood'
+        'Core Plywood',
+        'Wave Panel'
       ],
     },
     {
@@ -334,12 +342,25 @@ class _ProductsPageState extends State<ProductsPage> {
                 ? 2
                 : 1;
 
+    // Điều chỉnh tỷ lệ dựa trên số cột
+    final childAspectRatio = crossAxisCount == 4
+        ? 0.7 // Tỷ lệ nhỏ hơn cho 4 cột
+        : crossAxisCount == 2
+            ? 0.8 // Tỷ lệ lớn hơn cho 2 cột
+            : 0.75; // Tỷ lệ trung bình cho 3 cột
+
+    // Điều chỉnh font size dựa trên số cột
+    final titleFontSize = crossAxisCount == 4 ? 12.0 : 13.0;
+    final descFontSize = crossAxisCount == 4 ? 10.0 : 11.0;
+    final buttonFontSize = crossAxisCount == 4 ? 9.0 : 10.0;
+    final iconSize = crossAxisCount == 4 ? 10.0 : 11.0;
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: 0.75,
+        childAspectRatio: childAspectRatio,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
       ),
@@ -362,54 +383,79 @@ class _ProductsPageState extends State<ProductsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                flex: 3,
+              AspectRatio(
+                aspectRatio:
+                    crossAxisCount == 4 ? 1.0 : 1.1, // Điều chỉnh tỷ lệ ảnh
                 child: ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(8)),
                   child: Image.asset(
                     product['image'],
                     fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
                   ),
                 ),
               ),
               Expanded(
-                flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.fromLTRB(
+                    10,
+                    8,
+                    10,
+                    crossAxisCount == 4
+                        ? 8
+                        : 10, // Giảm padding bottom cho 4 cột
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         product['name'],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        product['description'],
                         style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey[600],
+                          fontWeight: FontWeight.bold,
+                          fontSize: titleFontSize,
+                          height: 1.2,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const Spacer(),
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(FontAwesomeIcons.phone, size: 16),
-                        label: const Text('LIÊN HỆ'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size(double.infinity, 40),
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                      SizedBox(height: crossAxisCount == 4 ? 3 : 4),
+                      Expanded(
+                        child: Text(
+                          product['description'],
+                          style: TextStyle(
+                            fontSize: descFontSize,
+                            color: Colors.grey[600],
+                            height: 1.2,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(height: crossAxisCount == 4 ? 4 : 6),
+                      SizedBox(
+                        height: crossAxisCount == 4
+                            ? 28
+                            : 30, // Giảm chiều cao nút cho 4 cột
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: Icon(FontAwesomeIcons.phone, size: iconSize),
+                          label: Text(
+                            'LIÊN HỆ',
+                            style: TextStyle(fontSize: buttonFontSize),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            foregroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(
+                                double.infinity, crossAxisCount == 4 ? 28 : 30),
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -424,4 +470,3 @@ class _ProductsPageState extends State<ProductsPage> {
     );
   }
 }
- 

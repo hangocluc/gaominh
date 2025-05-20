@@ -171,6 +171,19 @@ class ProductSection extends StatelessWidget {
             l10n.product8_highlight5,
           ],
         ),
+        Product(
+          name: l10n.product9_name,
+          image: 'assets/images/image18.jpg',
+          description: l10n.product9_description,
+          specifications: {
+            l10n.product9_spec_names: l10n.product9_spec_names_value,
+            l10n.product9_spec_material: l10n.product9_spec_material_value,
+            l10n.product9_spec_size: l10n.product9_spec_size_value,
+            l10n.product9_spec_application:
+                l10n.product9_spec_application_value,
+            l10n.product9_spec_advantages: l10n.product9_spec_advantages_value,
+          },
+        ),
       ];
 
   @override
