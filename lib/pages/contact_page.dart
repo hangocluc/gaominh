@@ -40,9 +40,9 @@ class _ContactPageState extends State<ContactPage> {
     setState(() => _isSending = true);
 
     try {
-      const serviceId = 'YOUR_SERVICE_ID';
-      const templateId = 'YOUR_TEMPLATE_ID';
-      const userId = 'YOUR_PUBLIC_KEY';
+      const serviceId = 'service_sy5x7xg';
+      const templateId = 'template_lmz3k1r';
+      const userId = 'tJ1EPu35SWyfWQihE';
 
       final response = await http.post(
         Uri.parse('https://api.emailjs.com/api/v1.0/email/send'),
@@ -55,11 +55,11 @@ class _ContactPageState extends State<ContactPage> {
           'template_id': templateId,
           'user_id': userId,
           'template_params': {
-            'from_name': _nameController.text,
-            'from_email': _emailController.text,
-            'phone': _phoneController.text,
+            'name': _nameController.text,
+            'time': DateTime.now().toString(),
             'message': _messageController.text,
-            'to_email': 'general.gaominh@gmail.com',
+            'subject': 'New Contact Form Submission',
+            'to_email': 'Hathithuphuong2709@gmail.com',
           }
         }),
       );

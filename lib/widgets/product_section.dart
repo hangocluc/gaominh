@@ -261,30 +261,33 @@ class ProductSection extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: isSmallScreen ? 14 : null,
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: isSmallScreen ? 4 : 8),
-                    Text(
-                      product.description,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: isSmallScreen ? 12 : null,
-                          ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: isSmallScreen ? 14 : null,
+                                ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: isSmallScreen ? 4 : 8),
+                      Text(
+                        product.description,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: isSmallScreen ? 12 : null,
+                            ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -337,89 +340,99 @@ class ProductSection extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        product.name,
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: isSmallScreen ? 14 : null,
-                                ),
-                      ),
-                      SizedBox(height: isSmallScreen ? 4 : 8),
-                      Text(
-                        product.description,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontSize: isSmallScreen ? 12 : null,
-                            ),
-                      ),
-                      if (product.specifications.isNotEmpty) ...[
-                        const SizedBox(height: 16),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          l10n.product_specifications,
+                          product.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: isSmallScreen ? 14 : null,
+                              ),
+                        ),
+                        SizedBox(height: isSmallScreen ? 4 : 8),
+                        Text(
+                          product.description,
                           style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontSize: isSmallScreen ? 12 : null,
                                   ),
                         ),
-                        const SizedBox(height: 8),
-                        ...product.specifications.entries.map(
-                          (spec) => Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: RichText(
-                              text: TextSpan(
-                                style: Theme.of(context).textTheme.bodyMedium,
+                        if (product.specifications.isNotEmpty) ...[
+                          const SizedBox(height: 16),
+                          Text(
+                            l10n.product_specifications,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          const SizedBox(height: 8),
+                          ...product.specifications.entries.map(
+                            (spec) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  children: [
+                                    TextSpan(
+                                      text: '${spec.key}: ',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(text: spec.value),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (product.highlights.isNotEmpty) ...[
+                          const SizedBox(height: 16),
+                          Text(
+                            l10n.product_highlights,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          const SizedBox(height: 8),
+                          ...product.highlights.map(
+                            (highlight) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextSpan(
-                                    text: '${spec.key}: ',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  const Icon(Icons.check_circle,
+                                      color: Colors.green, size: 20),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      highlight,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ),
-                                  TextSpan(text: spec.value),
                                 ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ],
-                      if (product.highlights.isNotEmpty) ...[
-                        const SizedBox(height: 16),
-                        Text(
-                          l10n.product_highlights,
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        const SizedBox(height: 8),
-                        ...product.highlights.map(
-                          (highlight) => Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.check_circle,
-                                    color: Colors.green, size: 20),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    highlight,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ],
+                    ),
                   ),
                 ),
               ],

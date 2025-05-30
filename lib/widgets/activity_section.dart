@@ -137,63 +137,68 @@ class ActivityCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              activity.month,
-                              style: GoogleFonts.roboto(
-                                fontSize: 14,
-                                color: Colors.grey[600],
-                              ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            Text(
-                              activity.date,
+                            child: Column(
+                              children: [
+                                Text(
+                                  activity.month,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 14,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                                Text(
+                                  activity.date,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              activity.title,
                               style: GoogleFonts.roboto(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          activity.title,
-                          style: GoogleFonts.roboto(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        activity.description,
+                        style: GoogleFonts.roboto(
+                          fontSize: 14,
+                          color: Colors.grey[600],
                         ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    activity.description,
-                    style: GoogleFonts.roboto(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                ),
               ),
             ),
           ],
