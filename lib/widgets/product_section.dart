@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../pages/product_details_page.dart';
 
 class Product {
   final String name;
@@ -248,49 +249,67 @@ class ProductSection extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(8)),
-                child: Image.asset(
-                  product.image,
-                  height: imageHeight,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        product.name,
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: isSmallScreen ? 14 : null,
-                                ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: isSmallScreen ? 4 : 8),
-                      Text(
-                        product.description,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontSize: isSmallScreen ? 12 : null,
-                            ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsPage(
+                    product: {
+                      'name': product.name,
+                      'image': product.image,
+                      'description': product.description,
+                      'category': 'Construction Plywood', // Default category
+                    },
                   ),
                 ),
-              ),
-            ],
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(8)),
+                  child: Image.asset(
+                    product.image,
+                    height: imageHeight,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.name,
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: isSmallScreen ? 14 : null,
+                                  ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: isSmallScreen ? 4 : 8),
+                        Text(
+                          product.description,
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontSize: isSmallScreen ? 12 : null,
+                                  ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

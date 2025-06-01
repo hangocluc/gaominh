@@ -174,7 +174,7 @@ class _ContactPageState extends State<ContactPage> {
                       context,
                       'WhatsApp',
                       FontAwesomeIcons.whatsapp,
-                      'https://wa.me/84326942288',
+                      '',
                       '+84 394 126 881',
                     ),
                     _buildSocialButton(

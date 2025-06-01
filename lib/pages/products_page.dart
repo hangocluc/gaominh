@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../pages/product_details_page.dart';
+import 'package:web_qr/widgets/app_bar.dart';
+import 'package:web_qr/widgets/custom_drawer.dart';
+import 'package:web_qr/widgets/footer.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -9,67 +14,64 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  String _sortValue = 'default';
+  String _sortValue = 'Mới nhất';
   String _selectedCategory = '';
   String _selectedSubcategory = '';
 
   final List<Map<String, dynamic>> _products = [
     {
-      'name': 'Ván Ép Phủ Phim (Film Faced Plywood)',
+      'nameKey': 'product1_name',
+      'descriptionKey': 'product1_description',
       'image': 'assets/images/product1.png',
       'category': 'Construction Plywood',
-      'description':
-          'Kích thước: 1220x2440mm, Độ dày: 12-21mm, Chất lượng cao, Chống nước tốt',
     },
     {
-      'name': 'Ván Ép Phủ Melamine (Melamine Plywood)',
+      'nameKey': 'product2_name',
+      'descriptionKey': 'product2_description',
       'image': 'assets/images/product2.png',
       'category': 'Decorative Plywood',
-      'description': 'Độ dày: 2.5-30mm, Keo: E0/E1/E2, Chất lượng cao cấp',
     },
     {
-      'name': 'Ván Ép Bao Bì (Packing Plywood)',
+      'nameKey': 'product3_name',
+      'descriptionKey': 'product3_description',
       'image': 'assets/images/product3.png',
       'category': 'Construction Plywood',
-      'description':
-          'Kích thước: 1220x2440mm, Độ dày: 5-18mm, Tiêu chuẩn xuất khẩu',
     },
     {
-      'name': 'LVL - Laminated Veneer Lumber',
+      'nameKey': 'product4_name',
+      'descriptionKey': 'product4_description',
       'image': 'assets/images/product4.png',
       'category': 'Construction Plywood',
-      'description': 'Độ dày: 12-90mm, Chiều rộng: 30-1220mm, Độ bền cao',
     },
     {
-      'name': 'Dịch Vụ Cắt CNC (CNC Cutting Service)',
+      'nameKey': 'product5_name',
+      'descriptionKey': 'product5_description',
       'image': 'assets/images/image.png',
       'category': 'Cutting Plywood',
-      'description': 'Cắt CNC theo yêu cầu, Độ chính xác cao, Giá cạnh tranh',
     },
     {
-      'name': 'Ván Ép Cốt (Core Plywood)',
+      'nameKey': 'product6_name',
+      'descriptionKey': 'product6_description',
       'image': 'assets/images/image2.png',
       'category': 'Decorative Plywood',
-      'description': 'Độ dày: 2.5-30mm, Keo: E0/E1/E2, Chất lượng ổn định',
     },
     {
-      'name': 'Ván Ép Birch (Birch Plywood)',
+      'nameKey': 'product7_name',
+      'descriptionKey': 'product7_description',
       'image': 'assets/images/image3.png',
       'category': 'Decorative Plywood',
-      'description': 'Mặt C/D/D+/E, Chất lượng cao, Phù hợp nội thất',
     },
     {
-      'name': 'Ván Phủ Melamina (Melamine Board)',
+      'nameKey': 'product8_name',
+      'descriptionKey': 'product8_description',
       'image': 'assets/images/image4.png',
       'category': 'Decorative Plywood',
-      'description': 'Độ dày: 2.5-30mm, Keo E0, Bề mặt đẹp',
     },
     {
-      'name': 'Lam Sóng Gỗ (Wood Wave Panel)',
+      'nameKey': 'product9_name',
+      'descriptionKey': 'product9_description',
       'image': 'assets/images/image18.jpg',
       'category': 'Decorative Plywood',
-      'description':
-          'Kích thước: 2800-3000x120-195mm, Độ dày: 9-18mm, Chất liệu: Gỗ nhựa composite, Ứng dụng: Ốp tường, ốp trần trang trí',
     },
   ];
 
@@ -119,76 +121,25 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isSmallScreen = screenWidth < 800;
-
-    return Container(
-      color: Colors.grey[50],
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: 60,
-          horizontal: screenWidth > 600 ? 20 : 10,
-        ),
-        constraints: const BoxConstraints(maxWidth: 1400),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+    return Scaffold(
+      appBar: const CustomAppBar(),
+      endDrawer: const CustomDrawer(),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'SẢN PHẨM',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-            ),
-            const SizedBox(height: 40),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (!isSmallScreen) ...[
-                  SizedBox(
-                    width: 280,
-                    child: _buildCategoryMenu(),
-                  ),
-                  const SizedBox(width: 40),
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  _buildCategoryMenu(),
+                  const SizedBox(height: 20),
+                  _buildProductGrid(),
                 ],
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Hiển thị ${filteredProducts.length} sản phẩm',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            _buildSortDropdown(),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      _buildProductGrid(context),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
+            const Footer(),
           ],
         ),
       ),
@@ -257,8 +208,8 @@ class _ProductsPageState extends State<ProductsPage> {
                         : null,
                   ),
                 ),
-                children:
-                    (category['subcategories'] as List<String>).map((subcat) {
+                children: (List<String>.from(category['subcategories']))
+                    .map((subcat) {
                   return ListTile(
                     contentPadding: const EdgeInsets.only(left: 56),
                     title: Text(
@@ -294,45 +245,7 @@ class _ProductsPageState extends State<ProductsPage> {
     );
   }
 
-  Widget _buildSortDropdown() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: _sortValue,
-          icon: const Icon(Icons.keyboard_arrow_down),
-          items: const [
-            DropdownMenuItem(
-              value: 'default',
-              child: Text('Mặc định'),
-            ),
-            DropdownMenuItem(
-              value: 'name_asc',
-              child: Text('A → Z'),
-            ),
-            DropdownMenuItem(
-              value: 'name_desc',
-              child: Text('Z → A'),
-            ),
-          ],
-          onChanged: (value) {
-            if (value != null) {
-              setState(() {
-                _sortValue = value;
-                // Implement sorting logic here
-              });
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductGrid(BuildContext context) {
+  Widget _buildProductGrid() {
     final screenWidth = MediaQuery.of(context).size.width;
     final crossAxisCount = screenWidth > 1200
         ? 4
@@ -344,16 +257,38 @@ class _ProductsPageState extends State<ProductsPage> {
 
     // Điều chỉnh tỷ lệ dựa trên số cột
     final childAspectRatio = crossAxisCount == 4
-        ? 0.7 // Tỷ lệ nhỏ hơn cho 4 cột
+        ? 0.65 // Giảm tỷ lệ để tăng chiều cao
         : crossAxisCount == 2
-            ? 0.8 // Tỷ lệ lớn hơn cho 2 cột
-            : 0.75; // Tỷ lệ trung bình cho 3 cột
+            ? 0.7 // Giảm tỷ lệ để tăng chiều cao
+            : 0.68; // Giảm tỷ lệ để tăng chiều cao
 
     // Điều chỉnh font size dựa trên số cột
-    final titleFontSize = crossAxisCount == 4 ? 12.0 : 13.0;
-    final descFontSize = crossAxisCount == 4 ? 10.0 : 11.0;
-    final buttonFontSize = crossAxisCount == 4 ? 9.0 : 10.0;
-    final iconSize = crossAxisCount == 4 ? 10.0 : 11.0;
+    final titleFontSize = crossAxisCount == 4 ? 16.0 : 18.0;
+    final descFontSize = crossAxisCount == 4 ? 14.0 : 16.0;
+    final buttonFontSize = crossAxisCount == 4 ? 13.0 : 14.0;
+    final iconSize = crossAxisCount == 4 ? 14.0 : 15.0;
+
+    final l10n = AppLocalizations.of(context)!;
+    final Map<String, String> productTexts = {
+      'product1_name': l10n.product1_name,
+      'product1_description': l10n.product1_description,
+      'product2_name': l10n.product2_name,
+      'product2_description': l10n.product2_description,
+      'product3_name': l10n.product3_name,
+      'product3_description': l10n.product3_description,
+      'product4_name': l10n.product4_name,
+      'product4_description': l10n.product4_description,
+      'product5_name': l10n.product5_name,
+      'product5_description': l10n.product5_description,
+      'product6_name': l10n.product6_name,
+      'product6_description': l10n.product6_description,
+      'product7_name': l10n.product7_name,
+      'product7_description': l10n.product7_description,
+      'product8_name': l10n.product8_name,
+      'product8_description': l10n.product8_description,
+      'product9_name': l10n.product9_name,
+      'product9_description': l10n.product9_description,
+    };
 
     return GridView.builder(
       shrinkWrap: true,
@@ -380,90 +315,111 @@ class _ProductsPageState extends State<ProductsPage> {
               ),
             ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AspectRatio(
-                aspectRatio:
-                    crossAxisCount == 4 ? 1.0 : 1.1, // Điều chỉnh tỷ lệ ảnh
-                child: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Image.asset(
-                    product['image'],
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: double.infinity,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsPage(
+                    product: {
+                      'name': productTexts[product['nameKey']] ?? '',
+                      'description':
+                          productTexts[product['descriptionKey']] ?? '',
+                      'image': product['image'],
+                      'category': product['category'],
+                    },
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    10,
-                    8,
-                    10,
-                    crossAxisCount == 4
-                        ? 8
-                        : 10, // Giảm padding bottom cho 4 cột
+              );
+            },
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AspectRatio(
+                    aspectRatio: crossAxisCount == 4 ? 0.9 : 1.0,
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(8)),
+                      child: Image.asset(
+                        product['image'],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        product['name'],
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: titleFontSize,
-                          height: 1.2,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        12,
+                        8,
+                        12,
+                        crossAxisCount == 4 ? 8 : 10,
                       ),
-                      SizedBox(height: crossAxisCount == 4 ? 3 : 4),
-                      Expanded(
-                        child: Text(
-                          product['description'],
-                          style: TextStyle(
-                            fontSize: descFontSize,
-                            color: Colors.grey[600],
-                            height: 1.2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                productTexts[product['nameKey']] ?? '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: titleFontSize,
+                                  height: 1.2,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: crossAxisCount == 4 ? 3 : 4),
+                              Text(
+                                productTexts[product['descriptionKey']] ?? '',
+                                style: TextStyle(
+                                  fontSize: descFontSize,
+                                  color: Colors.grey[600],
+                                  height: 1.2,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      SizedBox(height: crossAxisCount == 4 ? 4 : 6),
-                      SizedBox(
-                        height: crossAxisCount == 4
-                            ? 28
-                            : 30, // Giảm chiều cao nút cho 4 cột
-                        child: ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: Icon(FontAwesomeIcons.phone, size: iconSize),
-                          label: Text(
-                            'LIÊN HỆ',
-                            style: TextStyle(fontSize: buttonFontSize),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size(
-                                double.infinity, crossAxisCount == 4 ? 28 : 30),
-                            textStyle: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: crossAxisCount == 4 ? 32 : 36,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/contact');
+                              },
+                              icon:
+                                  Icon(FontAwesomeIcons.phone, size: iconSize),
+                              label: Text(
+                                AppLocalizations.of(context)!.contact,
+                                style: TextStyle(fontSize: buttonFontSize),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                foregroundColor: Colors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                minimumSize: Size(double.infinity,
+                                    crossAxisCount == 4 ? 32 : 36),
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         );
       },

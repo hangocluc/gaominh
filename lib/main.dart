@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_qr/screens/home_screen.dart';
 import 'package:web_qr/screens/contact_screen.dart';
-import 'package:web_qr/screens/products_screen.dart';
+import 'package:web_qr/pages/products_page.dart';
 import 'package:web_qr/screens/about_screen.dart';
 import 'package:web_qr/screens/news_screen.dart';
 import 'package:web_qr/screens/activities_screen.dart';
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(builder: (_) => const HomeScreen());
                 case '/products':
                   return MaterialPageRoute(
-                      builder: (_) => const ProductsScreen());
+                      builder: (_) => const ProductsPage());
                 case '/about':
                   return MaterialPageRoute(builder: (_) => const AboutScreen());
                 case '/news':
