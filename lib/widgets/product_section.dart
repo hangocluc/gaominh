@@ -237,7 +237,7 @@ class ProductSection extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: isSmallScreen ? 0.7 : 0.75,
+        childAspectRatio: isSmallScreen ? 0.65 : 0.7,
         crossAxisSpacing: screenWidth > 600 ? 20 : 10,
         mainAxisSpacing: screenWidth > 600 ? 20 : 10,
       ),
@@ -268,41 +268,85 @@ class ProductSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Image.asset(
-                    product.image,
-                    height: imageHeight,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                AspectRatio(
+                  aspectRatio: 1.2,
+                  child: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(8)),
+                    child: Image.asset(
+                      product.image,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
+                    padding: EdgeInsets.all(isSmallScreen ? 8 : 12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          product.name,
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: isSmallScreen ? 14 : null,
+                                    fontSize: isSmallScreen ? 14 : 16,
+                                    height: 1.2,
                                   ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: isSmallScreen ? 4 : 6),
+                            Text(
+                              product.description,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontSize: isSmallScreen ? 12 : 14,
+                                    height: 1.2,
+                                    color: Colors.grey[600],
+                                  ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
-                        SizedBox(height: isSmallScreen ? 4 : 8),
-                        Text(
-                          product.description,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: isSmallScreen ? 12 : null,
-                                  ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          height: isSmallScreen ? 32 : 36,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/contact');
+                            },
+                            icon: Icon(
+                              Icons.phone,
+                              size: isSmallScreen ? 14 : 16,
+                            ),
+                            label: Text(
+                              l10n.contact,
+                              style: TextStyle(
+                                fontSize: isSmallScreen ? 12 : 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: isSmallScreen ? 8 : 12,
+                              ),
+                              minimumSize: const Size(double.infinity, 0),
+                            ),
+                          ),
                         ),
                       ],
                     ),

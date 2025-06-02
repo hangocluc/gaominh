@@ -23,99 +23,117 @@ class _ProductsPageState extends State<ProductsPage> {
       'nameKey': 'product1_name',
       'descriptionKey': 'product1_description',
       'image': 'assets/images/product1.png',
-      'category': 'Construction Plywood',
+      'categoryKey': 'construction_plywood',
     },
     {
       'nameKey': 'product2_name',
       'descriptionKey': 'product2_description',
       'image': 'assets/images/product2.png',
-      'category': 'Decorative Plywood',
+      'categoryKey': 'decorative_plywood',
     },
     {
       'nameKey': 'product3_name',
       'descriptionKey': 'product3_description',
       'image': 'assets/images/product3.png',
-      'category': 'Construction Plywood',
+      'categoryKey': 'construction_plywood',
     },
     {
       'nameKey': 'product4_name',
       'descriptionKey': 'product4_description',
       'image': 'assets/images/product4.png',
-      'category': 'Construction Plywood',
+      'categoryKey': 'construction_plywood',
     },
     {
       'nameKey': 'product5_name',
       'descriptionKey': 'product5_description',
       'image': 'assets/images/image.png',
-      'category': 'Cutting Plywood',
+      'categoryKey': 'cutting_plywood',
     },
     {
       'nameKey': 'product6_name',
       'descriptionKey': 'product6_description',
       'image': 'assets/images/image2.png',
-      'category': 'Decorative Plywood',
+      'categoryKey': 'decorative_plywood',
     },
     {
       'nameKey': 'product7_name',
       'descriptionKey': 'product7_description',
       'image': 'assets/images/image3.png',
-      'category': 'Decorative Plywood',
+      'categoryKey': 'decorative_plywood',
     },
     {
       'nameKey': 'product8_name',
       'descriptionKey': 'product8_description',
       'image': 'assets/images/image4.png',
-      'category': 'Decorative Plywood',
+      'categoryKey': 'decorative_plywood',
     },
     {
       'nameKey': 'product9_name',
       'descriptionKey': 'product9_description',
       'image': 'assets/images/image18.jpg',
-      'category': 'Decorative Plywood',
+      'categoryKey': 'decorative_plywood',
     },
   ];
 
   final List<Map<String, dynamic>> _categories = [
     {
-      'name': 'Construction Plywood',
+      'nameKey': 'construction_plywood',
       'icon': FontAwesomeIcons.building,
       'subcategories': [
-        'Packing Plywood',
-        'Film Faced Plywood',
-        'LVL',
-        'Plywood'
+        'packing_plywood',
+        'film_faced_plywood',
+        'lvl',
+        'plywood'
       ],
     },
     {
-      'name': 'Decorative Plywood',
+      'nameKey': 'decorative_plywood',
       'icon': FontAwesomeIcons.paintRoller,
       'subcategories': [
-        'Commercial Plywood',
-        'Birch Plywood',
-        'Melamine Plywood',
-        'Core Plywood',
-        'Wave Panel'
+        'commercial_plywood',
+        'birch_plywood',
+        'melamine_plywood',
+        'core_plywood',
+        'wave_panel'
       ],
     },
     {
-      'name': 'Engineered Wood',
+      'nameKey': 'engineered_wood',
       'icon': FontAwesomeIcons.tree,
-      'subcategories': ['Finger Joint Board', 'Sawn Acacia Wood', 'Chip Block'],
+      'subcategories': ['finger_joint_board', 'sawn_acacia_wood', 'chip_block'],
     },
     {
-      'name': 'Cutting Plywood',
+      'nameKey': 'cutting_plywood',
       'icon': FontAwesomeIcons.cut,
       'subcategories': [],
     }
   ];
 
   List<Map<String, dynamic>> get filteredProducts {
+    final l10n = AppLocalizations.of(context)!;
     return _products.where((product) {
       if (_selectedCategory.isEmpty) return true;
-      if (_selectedSubcategory.isEmpty) {
-        return product['category'] == _selectedCategory;
+      String categoryName;
+      switch (product['categoryKey']) {
+        case 'construction_plywood':
+          categoryName = l10n.construction_plywood;
+          break;
+        case 'decorative_plywood':
+          categoryName = l10n.decorative_plywood;
+          break;
+        case 'engineered_wood':
+          categoryName = l10n.engineered_wood;
+          break;
+        case 'cutting_plywood':
+          categoryName = l10n.cutting_plywood;
+          break;
+        default:
+          categoryName = product['categoryKey'];
       }
-      return product['category'] == _selectedCategory;
+      if (_selectedSubcategory.isEmpty) {
+        return categoryName == _selectedCategory;
+      }
+      return categoryName == _selectedCategory;
     }).toList();
   }
 
@@ -147,6 +165,7 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget _buildCategoryMenu() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -170,13 +189,13 @@ class _ProductsPageState extends State<ProductsPage> {
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(8)),
             ),
-            child: const Row(
+            child: Row(
               children: [
                 Icon(FontAwesomeIcons.layerGroup,
                     color: Colors.white, size: 18),
                 SizedBox(width: 12),
                 Text(
-                  'DANH MỤC SẢN PHẨM',
+                  l10n.category_title,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -191,6 +210,23 @@ class _ProductsPageState extends State<ProductsPage> {
             itemCount: _categories.length,
             itemBuilder: (context, index) {
               final category = _categories[index];
+              String categoryName;
+              switch (category['nameKey']) {
+                case 'construction_plywood':
+                  categoryName = l10n.construction_plywood;
+                  break;
+                case 'decorative_plywood':
+                  categoryName = l10n.decorative_plywood;
+                  break;
+                case 'engineered_wood':
+                  categoryName = l10n.engineered_wood;
+                  break;
+                case 'cutting_plywood':
+                  categoryName = l10n.cutting_plywood;
+                  break;
+                default:
+                  categoryName = category['nameKey'];
+              }
               return ExpansionTile(
                 leading: Icon(
                   category['icon'] as IconData,
@@ -198,33 +234,74 @@ class _ProductsPageState extends State<ProductsPage> {
                   size: 18,
                 ),
                 title: Text(
-                  category['name'],
+                  categoryName,
                   style: TextStyle(
-                    fontWeight: _selectedCategory == category['name']
+                    fontWeight: _selectedCategory == categoryName
                         ? FontWeight.bold
                         : FontWeight.normal,
-                    color: _selectedCategory == category['name']
+                    color: _selectedCategory == categoryName
                         ? Theme.of(context).colorScheme.primary
                         : null,
                   ),
                 ),
                 children: (List<String>.from(category['subcategories']))
                     .map((subcat) {
+                  String subcatName;
+                  switch (subcat) {
+                    case 'packing_plywood':
+                      subcatName = l10n.packing_plywood;
+                      break;
+                    case 'film_faced_plywood':
+                      subcatName = l10n.film_faced_plywood;
+                      break;
+                    case 'lvl':
+                      subcatName = l10n.lvl;
+                      break;
+                    case 'plywood':
+                      subcatName = l10n.plywood;
+                      break;
+                    case 'commercial_plywood':
+                      subcatName = l10n.commercial_plywood;
+                      break;
+                    case 'birch_plywood':
+                      subcatName = l10n.birch_plywood;
+                      break;
+                    case 'melamine_plywood':
+                      subcatName = l10n.melamine_plywood;
+                      break;
+                    case 'core_plywood':
+                      subcatName = l10n.core_plywood;
+                      break;
+                    case 'wave_panel':
+                      subcatName = l10n.wave_panel;
+                      break;
+                    case 'finger_joint_board':
+                      subcatName = l10n.finger_joint_board;
+                      break;
+                    case 'sawn_acacia_wood':
+                      subcatName = l10n.sawn_acacia_wood;
+                      break;
+                    case 'chip_block':
+                      subcatName = l10n.chip_block;
+                      break;
+                    default:
+                      subcatName = subcat;
+                  }
                   return ListTile(
                     contentPadding: const EdgeInsets.only(left: 56),
                     title: Text(
-                      subcat,
+                      subcatName,
                       style: TextStyle(
                         fontSize: 14,
-                        color: _selectedSubcategory == subcat
+                        color: _selectedSubcategory == subcatName
                             ? Theme.of(context).colorScheme.primary
                             : null,
                       ),
                     ),
                     onTap: () {
                       setState(() {
-                        _selectedCategory = category['name'];
-                        _selectedSubcategory = subcat;
+                        _selectedCategory = categoryName;
+                        _selectedSubcategory = subcatName;
                       });
                     },
                   );
@@ -232,7 +309,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 onExpansionChanged: (expanded) {
                   if (expanded) {
                     setState(() {
-                      _selectedCategory = category['name'];
+                      _selectedCategory = categoryName;
                       _selectedSubcategory = '';
                     });
                   }
@@ -257,16 +334,16 @@ class _ProductsPageState extends State<ProductsPage> {
 
     // Điều chỉnh tỷ lệ dựa trên số cột
     final childAspectRatio = crossAxisCount == 4
-        ? 0.65 // Giảm tỷ lệ để tăng chiều cao
+        ? 0.7 // Giảm tỷ lệ để tăng chiều cao
         : crossAxisCount == 2
-            ? 0.7 // Giảm tỷ lệ để tăng chiều cao
-            : 0.68; // Giảm tỷ lệ để tăng chiều cao
+            ? 0.75 // Giảm tỷ lệ để tăng chiều cao
+            : 0.8; // Giảm tỷ lệ để tăng chiều cao
 
     // Điều chỉnh font size dựa trên số cột
-    final titleFontSize = crossAxisCount == 4 ? 16.0 : 18.0;
-    final descFontSize = crossAxisCount == 4 ? 14.0 : 16.0;
-    final buttonFontSize = crossAxisCount == 4 ? 13.0 : 14.0;
-    final iconSize = crossAxisCount == 4 ? 14.0 : 15.0;
+    final titleFontSize = crossAxisCount == 4 ? 14.0 : 15.0;
+    final descFontSize = crossAxisCount == 4 ? 12.0 : 13.0;
+    final buttonFontSize = crossAxisCount == 4 ? 11.0 : 12.0;
+    final iconSize = crossAxisCount == 4 ? 12.0 : 13.0;
 
     final l10n = AppLocalizations.of(context)!;
     final Map<String, String> productTexts = {
@@ -326,99 +403,91 @@ class _ProductsPageState extends State<ProductsPage> {
                       'description':
                           productTexts[product['descriptionKey']] ?? '',
                       'image': product['image'],
-                      'category': product['category'],
+                      'category': product['categoryKey'],
                     },
                   ),
                 ),
               );
             },
-            child: IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  AspectRatio(
-                    aspectRatio: crossAxisCount == 4 ? 0.9 : 1.0,
-                    child: ClipRRect(
-                      borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(8)),
-                      child: Image.asset(
-                        product['image'],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.2,
+                  child: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(8)),
+                    child: Image.asset(
+                      product['image'],
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        12,
-                        8,
-                        12,
-                        crossAxisCount == 4 ? 8 : 10,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                productTexts[product['nameKey']] ?? '',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: titleFontSize,
-                                  height: 1.2,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              productTexts[product['nameKey']] ?? '',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: titleFontSize,
+                                height: 1.2,
                               ),
-                              SizedBox(height: crossAxisCount == 4 ? 3 : 4),
-                              Text(
-                                productTexts[product['descriptionKey']] ?? '',
-                                style: TextStyle(
-                                  fontSize: descFontSize,
-                                  color: Colors.grey[600],
-                                  height: 1.2,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              productTexts[product['descriptionKey']] ?? '',
+                              style: TextStyle(
+                                fontSize: descFontSize,
+                                color: Colors.grey[600],
+                                height: 1.2,
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: crossAxisCount == 4 ? 32 : 36,
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/contact');
-                              },
-                              icon:
-                                  Icon(FontAwesomeIcons.phone, size: iconSize),
-                              label: Text(
-                                AppLocalizations.of(context)!.contact,
-                                style: TextStyle(fontSize: buttonFontSize),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
-                                foregroundColor: Colors.white,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                minimumSize: Size(double.infinity,
-                                    crossAxisCount == 4 ? 32 : 36),
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          height: 36,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/contact');
+                            },
+                            icon: Icon(FontAwesomeIcons.phone, size: iconSize),
+                            label: Text(
+                              AppLocalizations.of(context)!.contact,
+                              style: TextStyle(fontSize: buttonFontSize),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              foregroundColor: Colors.white,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              minimumSize: const Size(double.infinity, 36),
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
